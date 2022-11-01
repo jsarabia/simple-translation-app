@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import ChunkButton from './ChunkButton';
 import reportWebVitals from './reportWebVitals';
+import BlindDraft from './BlindDraft';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,6 +12,8 @@ root.render(
     <ChunkButton/>
     <br/>
     <App/>
+    <br/>
+    <BlindDraft/>
   </div>
 );
 

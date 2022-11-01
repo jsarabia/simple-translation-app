@@ -1,7 +1,6 @@
 import ChunkText from "./domain/ChunkText"
 
 function Draft() {
-    alert("yeye");
     let undo = ChunkText.getText();
     for (let item of undo) {
         let text = "";
