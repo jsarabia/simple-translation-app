@@ -1,19 +1,23 @@
 import React from 'react';
+import StepWizard from 'react-step-wizard';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import ChunkButton from './ChunkButton';
+
 import reportWebVitals from './reportWebVitals';
-import BlindDraft from './BlindDraft';
+import BlindDraft from './components/BlindDraft';
+import FirstPage from './components/FirstPage';
+import SecondPage from './components/SecondPage';
+import ThirdPage from './components/ThirdPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <div id="root">
-    <ChunkButton/>
-    <br/>
-    <App/>
-    <br/>
-    <BlindDraft/>
+    <StepWizard>
+      <FirstPage/>
+      <SecondPage/>
+      <ThirdPage/>
+    </StepWizard>
   </div>
 );
 

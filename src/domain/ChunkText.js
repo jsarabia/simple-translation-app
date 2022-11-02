@@ -1,3 +1,5 @@
+import MyDraft from "./MyDraft";
+
 let lastElement = 1;
 let modulo = 0;
 
@@ -54,5 +56,15 @@ export default {
     },
     getText() {
         return undo;
+    },
+    createDraft() {
+        MyDraft.clearDraft();
+        for (let chunk of undo) {
+            let chunkText = "";
+            for (let i = chunk.start; i < chunk.end; i++) {
+                chunkText += document.getElementById(i).innerText;
+            }
+            MyDraft.addChunk(chunk.start, chunkText);
+        }
     }
 }

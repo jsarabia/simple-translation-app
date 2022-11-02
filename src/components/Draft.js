@@ -1,4 +1,4 @@
-import ChunkText from "./domain/ChunkText"
+import ChunkText from "../domain/ChunkText"
 
 function Draft() {
     let undo = ChunkText.getText();
