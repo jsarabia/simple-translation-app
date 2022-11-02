@@ -17,7 +17,6 @@ export default {
     },
     addChunk(verseStart, text) {
         chunks.push({ verseStart: verseStart, text: text, translation: "" });
-        alert("adding " + text);
     },
 
     addTranslation(chunkNumber, translation) {

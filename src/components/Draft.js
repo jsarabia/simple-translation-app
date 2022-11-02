@@ -7,7 +7,6 @@ function Draft() {
         for (let i = item.start; i < item.end; i++) {
             text += document.getElementById(i).innerText;
         }
-        alert(text);
     }
 
     return (<div>chunkedyeye</div>)
