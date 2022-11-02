@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 let text = [
   'James, a servant of God and of the Lord Jesus Christ, to the twelve tribes in the dispersion: Greetings!',
@@ -33,19 +34,32 @@ let text = [
 
 function App() {
 
-    let out = [];
+  const [highlightedElement, setHighlightedElement] = useState()
 
-    let count = 0
+  let out = [];
 
-    for (let t of text) {
-      var words = t.split(" ");
-      for (let word of words) {
-        count++;
-        out.push((<span id={count}>{word} </span>));
-        out.push((<span> </span>));
-      }
-      out.push((<br></br>));
+  let count = 0
+
+  for (let t of text) {
+    var words = t.split(" ");
+    for (let word of words) {
+      count++;
+      out.push((<span id={count} onClick={(event) => {
+        if (highlightedElement != null) {
+          let elem = document.getElementById(highlightedElement.id);
+          elem.style.backgroundColor = highlightedElement.previousColor;
+        }
+
+        let current = event.target.id;
+        let elem = document.getElementById(current);
+        let prevColor = elem.style.backgroundColor;
+        elem.style.backgroundColor = "#DDDD0080";
+        setHighlightedElement({ id: current, previousColor: prevColor });
+      }}>{word} </span>));
+      out.push((<span> </span>));
     }
+    out.push((<br></br>));
+  }
 
   return (
     out
