@@ -44,17 +44,21 @@ function App() {
     var words = t.split(" ");
     for (let word of words) {
       count++;
-      out.push((<span id={count} onClick={(event) => {
+      out.push((<span chunked="false" id={count} onClick={(event) => {
         if (highlightedElement != null) {
           let elem = document.getElementById(highlightedElement.id);
-          elem.style.backgroundColor = highlightedElement.previousColor;
+          if (elem.getAttribute("chunked") === "false") {
+            elem.style.backgroundColor = highlightedElement.previousColor;
+          }
         }
 
         let current = event.target.id;
         let elem = document.getElementById(current);
-        let prevColor = elem.style.backgroundColor;
-        elem.style.backgroundColor = "#DDDD0080";
-        setHighlightedElement({ id: current, previousColor: prevColor });
+        if (elem.getAttribute("chunked")== "false") {
+          let prevColor = elem.style.backgroundColor;
+          elem.style.backgroundColor = "#DDDD0080";
+          setHighlightedElement({ id: current, previousColor: prevColor });
+        }
       }}>{word} </span>));
       out.push((<span> </span>));
     }

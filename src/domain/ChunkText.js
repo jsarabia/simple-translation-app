@@ -27,6 +27,7 @@ export default {
             modulo++;
             for (var i = lastElement; i <= id; i++) {
                 document.getElementById(i).style.backgroundColor = color;
+                document.getElementById(i).setAttribute("chunked", "true");
             }
             undo.push(new ChunkRange(lastElement, id))
             lastElement = id + 1;
@@ -39,6 +40,7 @@ export default {
             modulo--;
             for (let i = chunk.start; i <= chunk.end; i++) {
                 document.getElementById(i).style.backgroundColor = "#00000000";
+                document.getElementById(i).setAttribute("chunked", "false");
             }
             redo.push(chunk);
         }
@@ -49,6 +51,7 @@ export default {
             let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
             for (let i = chunk.start; i <= chunk.end; i++) {
                 document.getElementById(i).style.backgroundColor = color;
+                document.getElementById(i).setAttribute("chunked", "true");
             }
             modulo++;
             undo.push(chunk);
