@@ -1,17 +1,17 @@
-import App from '../App';
+import ChunkingView from './ChunkingView';
 import ChunkText from '../domain/ChunkText';
 import ChunkButton from './ChunkButton';
 
-function FirstPage({ nextStep }) {
+function FirstPage({ nextStep, isActive }) {
     return (
         <div>
-            <ChunkButton nextStep={
+            <ChunkButton isActive={isActive} nextStep={
                 () => {
                     ChunkText.createDraft();
                     nextStep();
                 }
             } />
-            <App />
+            <ChunkingView />
         </div>
     )
 }

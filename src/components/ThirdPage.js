@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import App from '../App';
+import ChunkingView from './ChunkingView';
 import ChunkText from '../domain/ChunkText';
 import MyDraft from '../domain/MyDraft';
 import ChunkButton from './ChunkButton';
@@ -14,7 +14,7 @@ function ThirdPage({isActive}) {
 
     return (
         <div>
-            <textarea id="final">{draft}</textarea>
+            <textarea id="final" rows="40" cols="100">{draft}</textarea>
             <button onClick={() => alert("what") + isActive}>download</button>
       </div>
       )

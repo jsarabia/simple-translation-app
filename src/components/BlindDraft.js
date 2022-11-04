@@ -14,11 +14,11 @@ function BlindDraft({isActive}) {
     return (
         <div>
             <div>{chunk.text}</div>
-            <textarea id="draftText"></textarea>
+            <textarea id="draftText" rows="20" cols="100"></textarea>
             <button onClick={() => {
                 let translationText = document.getElementById('draftText');
                 myDraft.addTranslation(chunkNumber, translationText.value);
-                const newChunk = myDraft.getNextChunk(chunkNumber);
+                const newChunk = myDraft.getNextChunk(chunkNumber+1);
                 setChunk(newChunk);
                 setChunkNumber(chunkNumber+1)
                 translationText.value = "";

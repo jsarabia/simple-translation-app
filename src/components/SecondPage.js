@@ -1,4 +1,4 @@
-import App from '../App';
+import ChunkingView from './ChunkingView';
 import ChunkText from '../domain/ChunkText';
 import BlindDraft from './BlindDraft';
 import ChunkButton from './ChunkButton';

@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import { useState } from 'react';
 
 let text = [
@@ -32,7 +30,7 @@ let text = [
   'Religion that is pure and unspoiled before our God and Father is to help the fatherless and widows in their affliction, and to keep oneself unstained by the world.',
 ];
 
-function App() {
+function ChunkingView() {
 
   const [highlightedElement, setHighlightedElement] = useState()
 
@@ -70,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChunkingView;

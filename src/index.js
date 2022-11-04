@@ -2,6 +2,8 @@ import React from 'react';
 import StepWizard from 'react-step-wizard';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './App.css';
+
 
 import reportWebVitals from './reportWebVitals';
 import BlindDraft from './components/BlindDraft';

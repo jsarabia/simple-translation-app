@@ -14,14 +14,10 @@ class ChunkRange {
 }
 
 export default {
-    handleChunk() {
-        alert("yeee");
-    },
     selectChunks() {
         if (window.getSelection) { // non-IE
             let userSelection = window.getSelection();
             let rangeObject = userSelection.getRangeAt(0);
-            // if (rangeObject.startContainer == rangeObject.endContainer) {
             let id = parseInt(rangeObject.endContainer.parentNode.id);
             let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
             modulo++;
@@ -60,11 +56,14 @@ export default {
     getText() {
         return undo;
     },
+    hasChunks() {
+        return undo.length > 0;
+    },
     createDraft() {
         MyDraft.clearDraft();
         for (let chunk of undo) {
             let chunkText = "";
-            for (let i = chunk.start; i < chunk.end; i++) {
+            for (let i = chunk.start; i <= chunk.end; i++) {
                 chunkText += document.getElementById(i).innerText;
             }
             MyDraft.addChunk(chunk.start, chunkText);
