@@ -13,8 +13,8 @@ function BlindDraft({isActive}) {
 
     return (
         <div>
-            <div>{chunk.text}</div>
-            <textarea id="draftText" rows="20" cols="100"></textarea>
+            <div id="chunkText">{chunk.text}</div>
+            <textarea id="draftText" rows="20" cols="100" onInput={() => {document.getElementById("chunkText").style.visibility = "hidden"}}></textarea>
             <button onClick={() => {
                 let translationText = document.getElementById('draftText');
                 myDraft.addTranslation(chunkNumber, translationText.value);
@@ -22,6 +22,7 @@ function BlindDraft({isActive}) {
                 setChunk(newChunk);
                 setChunkNumber(chunkNumber+1)
                 translationText.value = "";
+                document.getElementById("chunkText").style.visibility = "visible";
             }}>Next</button>
         </div>
     );
