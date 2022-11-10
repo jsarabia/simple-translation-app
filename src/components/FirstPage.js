@@ -11,7 +11,7 @@ function FirstPage({ nextStep, isActive }) {
                     nextStep();
                 }
             } />
-            <ChunkingView />
+            <ChunkingView isActive={isActive} />
         </div>
     )
 }

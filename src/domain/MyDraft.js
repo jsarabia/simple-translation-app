@@ -6,7 +6,18 @@ let chunks = [
     }
 ];
 
+let chapterText = [];
+
 export default {
+
+    setChapterText(chapterTextList) {
+        chapterText = chapterTextList;
+    },
+
+    getChapterText() {
+        return chapterText;
+    },
+
     clearDraft() {
         chunks = [];
     },

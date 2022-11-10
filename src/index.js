@@ -10,12 +10,14 @@ import BlindDraft from './components/BlindDraft';
 import FirstPage from './components/FirstPage';
 import SecondPage from './components/SecondPage';
 import ThirdPage from './components/ThirdPage';
+import HomePage from './components/HomePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div id="root">
     <StepWizard>
+      <HomePage/>
       <FirstPage/>
       <SecondPage/>
       <ThirdPage/>
