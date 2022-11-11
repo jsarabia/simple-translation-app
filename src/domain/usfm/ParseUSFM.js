@@ -4,14 +4,18 @@ const pk = new Proskomma();
 
 async function getChapterList(project) {
     const usfm = project.usfm;
-    const mutationQuery = `mutation { addDocument(` +
-        `selectors: [{key: "lang", value: "eng"}, {key: "abbr", value: "ust"}], ` +
-        `contentType: "usfm", ` +
-        `content: """${usfm}""") }`;
+    const mutationQuery = `mutation { 
+        addDocument(
+            selectors: [{key: "lang", value: "eng"}, {key: "abbr", value: "ust"}],
+            contentType: "usfm",
+            content: """${usfm}""",
+            tags: ["uuid_${project.id}"]
+        )
+    }`;
 
     const result = await pk.gqlQuery(mutationQuery);
 
-    const chapterListQuery = `{documents {cvIndexes {chapter} }}`;
+    const chapterListQuery = `{documents(withTags: "uuid_${project.id}") {cvIndexes {chapter} }}`;
 
     const chapterResult = await pk.gqlQuery(chapterListQuery);
     const chapterList = chapterResult["data"]["documents"][0]["cvIndexes"].map(x => x.chapter);
@@ -20,7 +24,7 @@ async function getChapterList(project) {
 
 async function loadChapterText(project, chapterNumber) {
     const versesQuery = `{
-        documents {
+        documents(withTags: "uuid_${project.id}") {
            cv(chapterVerses:"${chapterNumber}") {
               text(normalizeSpace: true)
            }

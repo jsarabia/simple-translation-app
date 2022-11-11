@@ -41,7 +41,7 @@ async function storeProject(usfmContent, filename, version = null) {
 
     const title = filename.split(".usfm")[0].split(".USFM")[0];
 
-    const uuid = uuidv4();
+    const uuid = uuidv4().replaceAll("-", "");
     const source = { id: uuid, title: title, version: vs, usfm: usfmContent };
 
     let sources = await localForage.getItem("sources_list");
