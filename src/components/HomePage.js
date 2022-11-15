@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
 import { loadProjects } from "../domain/storage/ProjectStorage";
 import { importUSFM } from "../domain/ImportFile";
-import {loadChapterText, getChapterList} from "../domain/usfm/ParseUSFM"
+import {loadChapterText, getChapterList} from "../domain/usfm/ParseUSFM";
+import draftRepo from "../domain/storage/DraftRepository";
 
 function HomePage(props) {
 
@@ -36,6 +37,7 @@ function HomePage(props) {
                 return <button onClick={() => {
                     (async () => {
                         let chapterText = await loadChapterText(activeProject, chapter);
+                        await draftRepo.createChapterDraft(activeProject.id, chapter);
                         MyDraft.setChapterText(chapterText);
                         props.nextStep();
                     })()

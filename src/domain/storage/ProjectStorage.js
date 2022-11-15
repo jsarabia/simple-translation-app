@@ -1,15 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 import localForage from 'localforage';
 
+const projectRepo = localForage.createInstance({name: "project_repository"});
+
 async function getProjects() {
-    let sources = await localForage.getItem("sources_list");
+    let sources = await projectRepo.getItem("sources_list");
     if (sources === null) {
         sources = [];
     }
 
     let projects = [];
     for (let source of sources) {
-        let project = await localForage.getItem(source);
+        let project = await projectRepo.getItem(source);
         if (project != null) {
             projects.push(project);
         }
@@ -23,14 +25,14 @@ async function getProjects() {
  * @param {id: str, version: str, title: str, usfm: str} project 
  */
 async function updateProject(project) {
-    await localForage.setItem(project.id, project);
+    await projectRepo.setItem(project.id, project);
 }
 
 async function removeProject(project) {
-    await localForage.removeItem(project.id);
-    const registry = await localForage.getItem("sources_list");
+    await projectRepo.removeItem(project.id);
+    const registry = await projectRepo.getItem("sources_list");
     const updated = registry.filter(x => x === project.id);
-    await localForage.setItem("sources_list", updated);
+    await projectRepo.setItem("sources_list", updated);
 }
 
 async function storeProject(usfmContent, filename, version = null) {
@@ -44,16 +46,16 @@ async function storeProject(usfmContent, filename, version = null) {
     const uuid = uuidv4().replaceAll("-", "");
     const source = { id: uuid, title: title, version: vs, usfm: usfmContent };
 
-    let sources = await localForage.getItem("sources_list");
+    let sources = await projectRepo.getItem("sources_list");
     if (sources === null) {
         sources = [];
     }
     if (!sources.includes(uuid)) {
         sources.push(uuid);
-        await localForage.setItem("sources_list", sources);
+        await projectRepo.setItem("sources_list", sources);
     }
 
-    localForage.setItem(uuid, source);
+    await projectRepo.setItem(uuid, source);
 }
 
 async function loadProjects() {
