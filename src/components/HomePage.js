@@ -38,6 +38,8 @@ function HomePage(props) {
                     (async () => {
                         let chapterText = await loadChapterText(activeProject, chapter);
                         await draftRepo.createChapterDraft(activeProject.id, chapter);
+                        const draft = await draftRepo.getChapterDraft(activeProject.id, chapter);
+                        MyDraft.loadDraft(draft);
                         MyDraft.setChapterText(chapterText);
                         props.nextStep();
                     })()

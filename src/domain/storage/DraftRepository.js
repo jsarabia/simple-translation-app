@@ -15,8 +15,8 @@ const draftRepo = localForage.createInstance({name: repoTable});
 async function getChapterDraft(sourceId, chapterNumber) {
     const books = await draftRepo.getItem(mapperTable);
     const drafts = books[sourceId];
-    const draftId = drafts.find((x) => x.chapter === chapterNumber);
-    const draft = await draftRepo.getItem(draftId);
+    const token = drafts.find((x) => x.chapter === chapterNumber);
+    const draft = await draftRepo.getItem(token.id);
     return draft;
 }
 
@@ -54,14 +54,18 @@ async function createChapterDraft(sourceId, chapterNumber) {
     let drafts = await draftRepo.getItem(mapperTable);
     const draftToken = {'chapter': chapterNumber, 'id': draftId};
     if (drafts === null) {
+        console.log("Creating drafts table for the first time")
         drafts = {};
         drafts[sourceId] = [draftToken];
     } else if (!drafts.hasOwnProperty(sourceId)) {
+        console.log("No draft currently for the selected source, adding it")
         drafts[sourceId] = [draftToken];
     } else {
-        if (drafts[sourceId].some((x) => x.id === draftId)) {
+        if (drafts[sourceId].some((x) => x.chapter === chapterNumber)) {
+            console.log("Drafts exist for the current source, and one matches the current chapter")
             return; // already contains the chapter draft
         }
+        console.log(`Adding a draft for chapter ${chapterNumber}`);
         drafts[sourceId].push(draft);
     }
 

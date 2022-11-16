@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import ChunkingView from './ChunkingView';
-import ChunkText from '../domain/ChunkText';
 import MyDraft from '../domain/MyDraft';
-import ChunkButton from './ChunkButton';
 import PrepareDownloadText from '../domain/PrepareDownloadText'
 
 function ThirdPage({isActive}) {

@@ -10,6 +10,10 @@ let chapterText = [];
 
 export default {
 
+    loadDraft(draft) {
+        console.log(draft);
+    },
+
     setChapterText(chapterTextList) {
         chapterText = chapterTextList;
     },
