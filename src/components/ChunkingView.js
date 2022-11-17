@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
 import MyDraft from '../domain/MyDraft';
+import ChunkText from '../domain/ChunkText';
 
 function ChunkingView({isActive}) {
 
   const [highlightedElement, setHighlightedElement] = useState()
   const [text, setText] = useState([]);
+  const [firstRenderDone, setFirstRenderDone] = useState(false);
 
   useEffect(() => {
     setText(MyDraft.getChapterText());
+    if (isActive) {
+      setFirstRenderDone(true);
+    }
   }, [isActive]);
+  
+  // your other useEffect (that works as componetDidUpdate)
+  useEffect(() => {
+    if(firstRenderDone){
+      console.log("should restore highlight");
+      ChunkText.restoreHighlight();
+    }
+  }, [firstRenderDone]);
 
   let out = [];
 

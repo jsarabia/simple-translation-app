@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
+import ChunkText from "../domain/ChunkText";
 import { loadProjects } from "../domain/storage/ProjectStorage";
 import { importUSFM } from "../domain/ImportFile";
 import {loadChapterText, getChapterList} from "../domain/usfm/ParseUSFM";
@@ -39,7 +40,7 @@ function HomePage(props) {
                         let chapterText = await loadChapterText(activeProject, chapter);
                         await draftRepo.createChapterDraft(activeProject.id, chapter);
                         const draft = await draftRepo.getChapterDraft(activeProject.id, chapter);
-                        MyDraft.loadDraft(draft);
+                        ChunkText.loadDraft(draft);
                         MyDraft.setChapterText(chapterText);
                         props.nextStep();
                     })()

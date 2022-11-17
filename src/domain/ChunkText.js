@@ -1,4 +1,5 @@
 import MyDraft from "./MyDraft";
+import { Chunk } from "../entities/Chunk";
 
 let lastElement = 1;
 let modulo = 0;
@@ -6,67 +7,133 @@ let modulo = 0;
 let redo = [];
 let undo = [];
 
-class ChunkRange {
-    constructor(start, end) {
-        this.start = start;
-        this.end = end;
+let _draft = {};
+
+function loadDraft(draft) {
+    this.lastElement = 1;
+    this.modulo = 0;
+    this.redo = [];
+    this.undo = [];
+    if (draft.content.length > 0) {
+        for (const chunk of draft.content) {
+            addChunk(new Chunk(chunk.start, chunk.end, chunk.text, chunk.translation, chunk.blindDrafted));
+        }
+        setLastElement(draft.content[draft.content.length - 1].end);
+    }
+    _draft = draft;
+}
+
+function updateDraft() {
+    _draft.content = [];
+    for (const chunk of undo) {
+        _draft.content.push(chunk);
+    }
+}
+
+function getDraft() {
+    return _draft;
+}
+
+function addChunk(chunkRange) {
+    undo.push(chunkRange)
+}
+
+function selectChunks() {
+    if (window.getSelection) { // non-IE
+        let userSelection = window.getSelection();
+        let rangeObject = userSelection.getRangeAt(0);
+        let id = parseInt(rangeObject.endContainer.parentNode.id);
+        const text = highlightChunks(lastElement, id);
+        addChunk(new Chunk(lastElement, id, text));
+        lastElement = id + 1;
+        redo = [];
+    }
+}
+
+function restoreHighlight() {
+    if (_draft == null) return;
+    if (_draft.content == null) return;
+
+    for (const chunk of _draft.content) {
+        highlightChunks(chunk.start, chunk.end);
+    }
+}
+
+function highlightChunks(start, end) {
+    let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
+    modulo++;
+    let text = "";
+    for (var i = start; i <= end; i++) {
+        const element = document.getElementById(i)
+        element.style.backgroundColor = color;
+        element.setAttribute("chunked", "true");
+        text += element.textContent;
+    }
+    return text;
+}
+
+function setLastElement(last) {
+    lastElement = last;
+}
+
+function undoChunk() {
+    if (undo.length > 0) {
+        let chunk = undo.pop();
+        modulo--;
+        for (let i = chunk.start; i <= chunk.end; i++) {
+            document.getElementById(i).style.backgroundColor = "#00000000";
+            document.getElementById(i).setAttribute("chunked", "false");
+        }
+        redo.push(chunk);
+    }
+}
+function redoChunk() {
+    if (redo.length > 0) {
+        let chunk = redo.pop();
+        let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
+        for (let i = chunk.start; i <= chunk.end; i++) {
+            document.getElementById(i).style.backgroundColor = color;
+            document.getElementById(i).setAttribute("chunked", "true");
+        }
+        modulo++;
+        undo.push(chunk);
+    }
+}
+
+function getText() {
+    return undo;
+}
+
+function hasChunks() {
+    return undo.length > 0;
+}
+
+function getChunks() {
+    return undo.map(x => x);
+}
+
+function createDraft() {
+    MyDraft.clearDraft();
+    for (let chunk of undo) {
+        let chunkText = "";
+        for (let i = chunk.start; i <= chunk.end; i++) {
+            chunkText += document.getElementById(i).innerText;
+        }
+        MyDraft.addChunk(chunk.start, chunkText);
     }
 }
 
 export default {
-    selectChunks() {
-        if (window.getSelection) { // non-IE
-            let userSelection = window.getSelection();
-            let rangeObject = userSelection.getRangeAt(0);
-            let id = parseInt(rangeObject.endContainer.parentNode.id);
-            let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
-            modulo++;
-            for (var i = lastElement; i <= id; i++) {
-                document.getElementById(i).style.backgroundColor = color;
-                document.getElementById(i).setAttribute("chunked", "true");
-            }
-            undo.push(new ChunkRange(lastElement, id))
-            lastElement = id + 1;
-            redo = [];
-        }
-    },
-    undoChunk() {
-        if (undo.length > 0) {
-            let chunk = undo.pop();
-            modulo--;
-            for (let i = chunk.start; i <= chunk.end; i++) {
-                document.getElementById(i).style.backgroundColor = "#00000000";
-                document.getElementById(i).setAttribute("chunked", "false");
-            }
-            redo.push(chunk);
-        }
-    },
-    redoChunk() {
-        if (redo.length > 0) {
-            let chunk = redo.pop();
-            let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
-            for (let i = chunk.start; i <= chunk.end; i++) {
-                document.getElementById(i).style.backgroundColor = color;
-                document.getElementById(i).setAttribute("chunked", "true");
-            }
-            modulo++;
-            undo.push(chunk);
-        }
-    },
-    getText() {
-        return undo;
-    },
-    hasChunks() {
-        return undo.length > 0;
-    },
-    createDraft() {
-        MyDraft.clearDraft();
-        for (let chunk of undo) {
-            let chunkText = "";
-            for (let i = chunk.start; i <= chunk.end; i++) {
-                chunkText += document.getElementById(i).innerText;
-            }
-            MyDraft.addChunk(chunk.start, chunkText);
-        }
-    }
+    addChunk,
+    selectChunks,
+    undoChunk,
+    redoChunk,
+    getText,
+    hasChunks,
+    createDraft,
+    setLastElement,
+    loadDraft,
+    updateDraft,
+    getDraft,
+    restoreHighlight
 }

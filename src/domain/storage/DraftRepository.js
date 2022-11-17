@@ -15,15 +15,13 @@ const draftRepo = localForage.createInstance({name: repoTable});
 async function getChapterDraft(sourceId, chapterNumber) {
     const books = await draftRepo.getItem(mapperTable);
     const drafts = books[sourceId];
-    const token = drafts.find((x) => x.chapter === chapterNumber);
+    const token = drafts.find((x) => x.chapterNumber === chapterNumber || x.chapter === chapterNumber);
     const draft = await draftRepo.getItem(token.id);
     return draft;
 }
 
 async function updateChapterDraft(draft) {
-    const book = await draftRepo.getItem(draft.sourceId);
-    book[draft.id] = draft;   
-    await draftRepo.setItem(draft.sourceId, draft);
+    await draftRepo.setItem(draft.id, draft);
 }
 
 /**
