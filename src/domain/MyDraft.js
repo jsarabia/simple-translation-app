@@ -8,10 +8,30 @@ let chunks = [
 
 let chapterText = [];
 
+let _draft = null;
+
 export default {
 
     loadDraft(draft) {
-        console.log(draft);
+        if (draft == null) return;
+        if (draft.content == null) return;
+
+        chunks = [];
+        for (const chunk of draft.content) {
+            chunks.push(chunk);
+        }
+        _draft = draft;
+    },
+
+    updateDraft() {
+        _draft.content = [];
+        for (const chunk of chunks) {
+            _draft.content.push(chunk);
+        }
+    },
+
+    getDraft() {
+        return _draft;
     },
 
     setChapterText(chapterTextList) {
@@ -24,9 +44,6 @@ export default {
 
     clearDraft() {
         chunks = [];
-    },
-    addChunk(verseStart, text) {
-        chunks.push({ verseStart: verseStart, text: text, translation: "" });
     },
 
     addTranslation(chunkNumber, translation) {

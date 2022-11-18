@@ -10,10 +10,10 @@ let undo = [];
 let _draft = {};
 
 function loadDraft(draft) {
-    this.lastElement = 1;
-    this.modulo = 0;
-    this.redo = [];
-    this.undo = [];
+    lastElement = 1;
+    modulo = 0;
+    redo = [];
+    undo = [];
     if (draft.content.length > 0) {
         for (const chunk of draft.content) {
             addChunk(new Chunk(chunk.start, chunk.end, chunk.text, chunk.translation, chunk.blindDrafted));
@@ -112,16 +112,6 @@ function getChunks() {
     return undo.map(x => x);
 }
 
-function createDraft() {
-    MyDraft.clearDraft();
-    for (let chunk of undo) {
-        let chunkText = "";
-        for (let i = chunk.start; i <= chunk.end; i++) {
-            chunkText += document.getElementById(i).innerText;
-        }
-        MyDraft.addChunk(chunk.start, chunkText);
-    }
-}
 
 export default {
     addChunk,
@@ -130,7 +120,6 @@ export default {
     redoChunk,
     getText,
     hasChunks,
-    createDraft,
     setLastElement,
     loadDraft,
     updateDraft,

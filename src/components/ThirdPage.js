@@ -6,6 +6,13 @@ function ThirdPage({isActive}) {
 
     const [draft, setDraft] = useState("");
 
+    useEffect(() => {
+        if (isActive) {
+            MyDraft.updateDraft();
+            console.log(MyDraft.getDraft());
+        }
+    }, [isActive]);
+
     function saveTextAsFile(textToWrite, fileNameToSaveAs) {
         function destroyClickedElement(event){
             document.body.removeChild(event.target);
