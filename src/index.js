@@ -15,13 +15,16 @@ import HomePage from './components/HomePage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <div id="root">
-    <StepWizard>
-      <HomePage/>
-      <FirstPage/>
-      <SecondPage/>
-      <ThirdPage/>
-    </StepWizard>
+  <div id="root" class="main_container">
+    <div id="appbar" class="app_bar"></div>
+    <div class="stage">
+      <StepWizard>
+        <HomePage />
+        <FirstPage />
+        <SecondPage />
+        <ThirdPage />
+      </StepWizard>
+    </div>
   </div>
 );
 

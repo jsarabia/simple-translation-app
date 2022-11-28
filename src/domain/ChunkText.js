@@ -9,6 +9,9 @@ let undo = [];
 
 let _draft = {};
 
+const primaryColor = "#FF0000";
+const secondaryColor = "#0000FF";
+
 function loadDraft(draft) {
     lastElement = 1;
     modulo = 0;
@@ -60,7 +63,7 @@ function restoreHighlight() {
 }
 
 function highlightChunks(start, end) {
-    let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
+    let color = (modulo % 2 === 0) ? primaryColor : secondaryColor;
     modulo++;
     let text = "";
     for (var i = start; i <= end; i++) {
@@ -90,7 +93,7 @@ function undoChunk() {
 function redoChunk() {
     if (redo.length > 0) {
         let chunk = redo.pop();
-        let color = (modulo % 2 === 0) ? "#FF0000" : "#0000FF";
+        let color = (modulo % 2 === 0) ? primaryColor : secondaryColor;
         for (let i = chunk.start; i <= chunk.end; i++) {
             document.getElementById(i).style.backgroundColor = color;
             document.getElementById(i).setAttribute("chunked", "true");

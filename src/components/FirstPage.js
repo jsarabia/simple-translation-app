@@ -6,7 +6,7 @@ import DraftRepository from '../domain/storage/DraftRepository';
 
 function FirstPage({ nextStep, isActive }) {
     return (
-        <div>
+        <div class="single_column_container--centered">
             <ChunkButton isActive={isActive} nextStep={() => {
                 (async () => {
                     ChunkText.updateDraft();

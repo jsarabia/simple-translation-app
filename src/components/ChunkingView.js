@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MyDraft from '../domain/MyDraft';
 import ChunkText from '../domain/ChunkText';
 
-function ChunkingView({isActive}) {
+function ChunkingView({ isActive }) {
 
   const [highlightedElement, setHighlightedElement] = useState()
   const [text, setText] = useState([]);
@@ -14,10 +14,10 @@ function ChunkingView({isActive}) {
       setFirstRenderDone(true);
     }
   }, [isActive]);
-  
+
   // your other useEffect (that works as componetDidUpdate)
   useEffect(() => {
-    if(firstRenderDone){
+    if (firstRenderDone) {
       console.log("should restore highlight");
       ChunkText.restoreHighlight();
     }
@@ -41,7 +41,7 @@ function ChunkingView({isActive}) {
 
         let current = event.target.id;
         let elem = document.getElementById(current);
-        if (elem.getAttribute("chunked")== "false") {
+        if (elem.getAttribute("chunked") == "false") {
           let prevColor = elem.style.backgroundColor;
           elem.style.backgroundColor = "#DDDD0080";
           setHighlightedElement({ id: current, previousColor: prevColor });
@@ -53,7 +53,13 @@ function ChunkingView({isActive}) {
   }
 
   return (
-    out
+    <div class="single_column_container--centered">
+      <div class="single_column_item">
+        <div>
+          {out}
+        </div>
+      </div>
+    </div>
   );
 }
 

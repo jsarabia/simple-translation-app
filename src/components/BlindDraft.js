@@ -16,7 +16,7 @@ function BlindDraft({ isActive }) {
     }, [isActive]);
 
     return (
-        <div>
+        <div class="single_column">
             <div id="chunkText">{sourceText}</div>
             <textarea id="draftText" rows="20" cols="100" onInput={() => {
                 document.getElementById("chunkText").style.visibility = "hidden";
