@@ -53,7 +53,7 @@ function ChunkingView({ isActive }) {
   }
 
   return (
-    <div class="single_column_container--centered">
+    <div class="single_column_container--centered text_stage">
       <div class="single_column_item">
         <div>
           {out}

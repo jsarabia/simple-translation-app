@@ -11,12 +11,13 @@ import FirstPage from './components/FirstPage';
 import SecondPage from './components/SecondPage';
 import ThirdPage from './components/ThirdPage';
 import HomePage from './components/HomePage';
+import AppBar from './components/AppBar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div id="root" class="main_container">
-    <div id="appbar" class="app_bar"></div>
+    <AppBar/>
     <div class="stage">
       <StepWizard>
         <HomePage />
