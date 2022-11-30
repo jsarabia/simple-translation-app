@@ -75,33 +75,31 @@ function HomePage(props) {
         setup();
     }, []);
 
-    return <div class="stage">
-        <div class="single_column_container--centered">
-            <div class="single_column_item">
-                <SourcesList chapters={chapterList} sources={projectCount} onClick={async (source) => {
-                    const list = await getChapterList(source);
-                    setActiveProject(source);
-                    setChapterList(list);
+    return <div class="home_page_container">
+        <div class="home_page__list">
+            <SourcesList chapters={chapterList} sources={projectCount} onClick={async (source) => {
+                const list = await getChapterList(source);
+                setActiveProject(source);
+                setChapterList(list);
 
-                }}
-                    onChapterClick={
-                        async (_chapter) => {
-                            let chapterText = await loadChapterText(activeProject, _chapter);
-                            await draftRepo.createChapterDraft(activeProject.id, _chapter);
-                            const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
-                            ChunkText.loadDraft(draft);
-                            MyDraft.setChapterText(chapterText);
-                            props.nextStep();
-                        }
-                    }>
-                </SourcesList>
-                <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
-                    const files = event.target.files;
-                    for (const file of files) {
-                        importUSFM(file);
+            }}
+                onChapterClick={
+                    async (_chapter) => {
+                        let chapterText = await loadChapterText(activeProject, _chapter);
+                        await draftRepo.createChapterDraft(activeProject.id, _chapter);
+                        const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
+                        ChunkText.loadDraft(draft);
+                        MyDraft.setChapterText(chapterText);
+                        props.nextStep();
                     }
-                }}></input>
-            </div>
+                }>
+            </SourcesList>
+            <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
+                const files = event.target.files;
+                for (const file of files) {
+                    importUSFM(file);
+                }
+            }}></input>
         </div>
     </div>;
 }

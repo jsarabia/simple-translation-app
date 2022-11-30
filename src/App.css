@@ -81,6 +81,18 @@
   max-width: 800px;
 }
 
+.home_page_container {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.home_page__list {
+  grid-column: 2;
+  overflow-y: auto;
+}
+
 .first_page_container {
   display: grid;
   row-gap: 1.5rem;
