@@ -9,8 +9,8 @@ let undo = [];
 
 let _draft = {};
 
-const primaryColor = "#FF0000";
-const secondaryColor = "#0000FF";
+const primaryColor = "#e54686";
+const secondaryColor = "#2692d0";
 
 function loadDraft(draft) {
     lastElement = 1;

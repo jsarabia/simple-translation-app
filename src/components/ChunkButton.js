@@ -20,7 +20,7 @@ function ChunkButton({nextStep, isActive}) {
     }, [isActive]);
 
     return (
-        <div class="row_container--centered">
+        <div class="first_page__actions">
             <button id="chunkAction" onClick={() => { ChunkText.selectChunks(); }}>Chunk</button>
             <button onClick={() => { ChunkText.undoChunk(); }}>Undo</button>
             <button onClick={() => { ChunkText.redoChunk(); }}>Redo</button>
