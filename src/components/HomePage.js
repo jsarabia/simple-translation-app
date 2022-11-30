@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
+import ChunkText from "../domain/ChunkText";
 import { loadProjects } from "../domain/storage/ProjectStorage";
 import { importUSFM } from "../domain/ImportFile";
 import { loadChapterText, getChapterList } from "../domain/usfm/ParseUSFM";
@@ -24,7 +25,7 @@ function SourcesListItem(props) {
     return (<>
         <ListItemButton onClick={() => {
             handleClick();
-            props.onClick(props.source)();
+            props.onClick(props.source);
         }
         }>
             <ListItemIcon>
@@ -35,14 +36,17 @@ function SourcesListItem(props) {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit class="text_content">
             <List component="div" disablePadding>
-            {props.chapters.map(x => {
-                return (<ListItemButton sx={{ pl: 8 }} onClick={props.onChapterClick(x)}>
-                    <ListItemIcon>
-                        <DescriptionIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={`Chapter ${x}`} />
-                </ListItemButton>)
-            })}
+                {props.chapters.map(x => {
+                    return (<ListItemButton sx={{ pl: 8 }} onClick={() => {
+                        props.onChapterClick(x);
+                    }
+                    }>
+                        <ListItemIcon>
+                            <DescriptionIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={`Chapter ${x}`} />
+                    </ListItemButton>)
+                })}
             </List>
         </Collapse></>
     );
@@ -51,7 +55,8 @@ function SourcesListItem(props) {
 function SourcesList(props) {
     return (<List>
         {props.sources.map(x => {
-            return (<SourcesListItem onClick={props.onClick} onChapterClick={props.onChapterClick} source={x} chapters={props.chapters}/>)}
+            return (<SourcesListItem onClick={props.onClick} onChapterClick={props.onChapterClick} source={x} chapters={props.chapters} />)
+        }
         )}
     </List>)
 }
@@ -73,39 +78,30 @@ function HomePage(props) {
     return <div class="stage">
         <div class="single_column_container--centered">
             <div class="single_column_item">
-        <SourcesList chapters={chapterList} sources={projectCount} onClick={(source) => {
-            return (async () => {
-                const list = await getChapterList(source);
-                setActiveProject(source);
-                setChapterList(list);
-            })
-        }}
-        onChapterClick={
-            (chapter) => {
-                return (async () => {
-                    let chapterText = await loadChapterText(activeProject, chapter);
-                    await draftRepo.createChapterDraft(activeProject.id, chapter);
-                    const draft = await draftRepo.getChapterDraft(activeProject.id, chapter);
-                    MyDraft.loadDraft(draft);
-                    MyDraft.setChapterText(chapterText);
-                    props.nextStep();
-                })
-            }
-        }>
-        </SourcesList>
-        {/* <li>
-            {chapterList.map(chapter => {
-                return <button onClick={
-                }>{chapter}</button>
-            })}
-        </li> */}
-        <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
-            const files = event.target.files;
-            for (const file of files) {
-                importUSFM(file);
-            }
-        }}></input>
-        </div>
+                <SourcesList chapters={chapterList} sources={projectCount} onClick={async (source) => {
+                    const list = await getChapterList(source);
+                    setActiveProject(source);
+                    setChapterList(list);
+
+                }}
+                    onChapterClick={
+                        async (_chapter) => {
+                            let chapterText = await loadChapterText(activeProject, _chapter);
+                            await draftRepo.createChapterDraft(activeProject.id, _chapter);
+                            const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
+                            ChunkText.loadDraft(draft);
+                            MyDraft.setChapterText(chapterText);
+                            props.nextStep();
+                        }
+                    }>
+                </SourcesList>
+                <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
+                    const files = event.target.files;
+                    for (const file of files) {
+                        importUSFM(file);
+                    }
+                }}></input>
+            </div>
         </div>
     </div>;
 }
