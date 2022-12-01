@@ -64,5 +64,11 @@ export default {
     getNextChunk(num) {
         let clamped = Math.max(Math.min(num, chunks.length - 1), 0);
         return chunks[clamped];
+    },
+
+    hasMoreChunks(num) {
+        if (num > chunks.length - 2) return false;
+    
+        return true;
     }
 }

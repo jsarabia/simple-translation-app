@@ -61,6 +61,10 @@ function SourcesList(props) {
     </List>)
 }
 
+function TopBar() {
+    return (<div class="home_page__top_bar"></div>);
+}
+
 function HomePage(props) {
 
     const [projectCount, setProjectCount] = useState([]);
@@ -76,6 +80,7 @@ function HomePage(props) {
     }, []);
 
     return <div class="home_page_container">
+        <TopBar />
         <div class="home_page__list">
             <SourcesList chapters={chapterList} sources={projectCount} onClick={async (source) => {
                 const list = await getChapterList(source);

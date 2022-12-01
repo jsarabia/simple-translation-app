@@ -31,7 +31,7 @@ function ChunkingView({ isActive }) {
     var words = t.split(" ");
     for (let word of words) {
       count++;
-      out.push((<span chunked="false" id={count} onClick={(event) => {
+      out.push((<span class="draft_text" chunked="false" id={count} onClick={(event) => {
         if (highlightedElement != null) {
           let elem = document.getElementById(highlightedElement.id);
           if (elem.getAttribute("chunked") === "false") {
@@ -47,16 +47,19 @@ function ChunkingView({ isActive }) {
           setHighlightedElement({ id: current, previousColor: prevColor });
         }
       }}>{word} </span>));
-      out.push((<span> </span>));
+      out.push((<span class="draft_text"> </span>));
     }
-    out.push((<br></br>));
+    count++;
+    out.push((<br chunked="false" id={count}></br>));
   }
 
   return (
     <div class="first_page__content">
-      <div class="">
+      <div class="draft_wrap">
         <div>
+          <p class="">
           {out}
+          </p>
         </div>
       </div>
     </div>
