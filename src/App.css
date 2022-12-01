@@ -198,6 +198,8 @@
 
 .draft_wrap {
   max-width: 600px;
+  padding-left: 10rem;
+  padding-right: 5rem;
 }
 
 .draft_text {

@@ -7,7 +7,7 @@ import { importUSFM } from "../domain/ImportFile";
 function AppBar() {
     return (
         <div class="app_bar">
-            <IconButton class="nav_btn">
+            <IconButton class="nav_btn" onClick={() => { window.location.reload() }}>
                 <HomeIcon />
             </IconButton>
         
