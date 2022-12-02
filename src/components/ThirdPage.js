@@ -3,7 +3,7 @@ import MyDraft from '../domain/MyDraft';
 import PrepareDownloadText from '../domain/PrepareDownloadText'
 import { Button, Fab, TextareaAutosize } from '@mui/material';
 
-function TopBar() {
+function TopBar({bookCode, chapterNumber}) {
 
     function saveTextAsFile(textToWrite, fileNameToSaveAs) {
         function destroyClickedElement(event) {
@@ -22,7 +22,7 @@ function TopBar() {
 
     return (<div class="home_page__top_bar">
         <Button component="div" color="secondary" variant="contained" onClick={() => {
-            saveTextAsFile(PrepareDownloadText.process("jas", 1, document.getElementById("final").value), "doc.usfm");
+            saveTextAsFile(PrepareDownloadText.process(bookCode, chapterNumber, document.getElementById("final").value), `${bookCode}_${chapterNumber}_draft.usfm`);
         }}>
             Download
         </Button>
@@ -32,12 +32,13 @@ function TopBar() {
 
 function ThirdPage({ isActive }) {
 
-    const [draft, setDraft] = useState("");
+    const [draft, setDraft] = useState({});
 
     useEffect(() => {
         if (isActive) {
             MyDraft.updateDraft();
             console.log(MyDraft.getDraft());
+            setDraft(MyDraft.getDraft);
         }
     }, [isActive]);
 
@@ -47,7 +48,7 @@ function ThirdPage({ isActive }) {
 
     return (
         <div class="third_page__container">
-            <TopBar />
+            <TopBar bookCode={draft.bookCode} chapterNumber={draft.chapterNumber}/>
             <div class="third_page__draft_container">
                 <TextareaAutosize class="draft_text" sx={{width: 600}} id="final">{draft}</TextareaAutosize>
             </div>

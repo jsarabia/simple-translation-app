@@ -99,6 +99,7 @@ function HomePage(props) {
                         let chapterText = await loadChapterText(activeProject, _chapter);
                         await draftRepo.createChapterDraft(activeProject.id, _chapter);
                         const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
+                        draft.bookCode = activeProject.code;
                         ChunkText.loadDraft(draft);
                         MyDraft.setChapterText(chapterText);
                         props.nextStep();
