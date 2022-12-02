@@ -7,11 +7,11 @@ import { importUSFM } from "../domain/ImportFile";
 function AppBar() {
     return (
         <div class="app_bar">
-            <IconButton class="nav_btn" onClick={() => { window.location.reload() }}>
+            <Button component="div" color="info" variant="contained" sx={{margin: 1, minWidth:48, maxWidth: 48, height: 48}} onClick={() => { window.location.reload() }}>
                 <HomeIcon />
-            </IconButton>
+            </Button>
         
-            <Button variant="contained" component="label" sx={{margin: 1, minWidth:48, maxWidth: 48, height: 48}}>
+            <Button color="info" variant="contained" component="label" sx={{margin: 1, minWidth:48, maxWidth: 48, height: 48}}>
                 <input hidden type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
                     const files = event.target.files;
                     for (const file of files) {

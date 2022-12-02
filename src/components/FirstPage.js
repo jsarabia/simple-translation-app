@@ -10,7 +10,7 @@ import RedoIcon from '@mui/icons-material/Redo';
 
 function TopBar({ onNext }) {
     return (<div class="home_page__top_bar">
-        <Button component="div" color="primary" variant="contained" onClick={onNext}>
+        <Button component="div" color="info" variant="contained" onClick={onNext}>
             Next
         </Button>
     </div>);
@@ -35,7 +35,7 @@ function FirstPage({ nextStep, isActive }) {
             }} />
             <ChunkingView isActive={isActive} />
             <div class="first_page__fab_container">
-                <Fab color="tertiary" variant="extended" onClick={() => { ChunkText.undoChunk(); }}>
+                <Fab color="info" variant="extended" onClick={() => { ChunkText.undoChunk(); }}>
                     <UndoIcon />
                     Undo
                 </Fab>
@@ -43,7 +43,7 @@ function FirstPage({ nextStep, isActive }) {
                     <AddIcon />
                     Chunk
                 </Fab>
-                <Fab color="tertiary" variant="extended" onClick={() => { ChunkText.redoChunk(); }}>
+                <Fab color="info" variant="extended" onClick={() => { ChunkText.redoChunk(); }}>
                     <RedoIcon />
                     Redo
                 </Fab>

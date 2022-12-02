@@ -14,6 +14,8 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
+import gray from '@mui/material/colors/grey';
+
 
 function SourcesListItem(props) {
     const [open, setOpen] = useState(false);
@@ -23,7 +25,7 @@ function SourcesListItem(props) {
     };
 
     return (<>
-        <ListItemButton onClick={() => {
+        <ListItemButton sx={{border: .1, margin: "10px"}} onClick={() => {
             handleClick();
             props.onClick(props.source);
         }

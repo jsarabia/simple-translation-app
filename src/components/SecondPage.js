@@ -8,12 +8,12 @@ import { Button, Fab } from '@mui/material';
 
 function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish }) {
 
-    const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained">Next</Button>);
-    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="warning">Finish</Button>);
+    const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained" color="info">Next</Button>);
+    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary">Finish</Button>);
 
     return (<div class="second_page__actions__container">
         <div class="second_page__actions--left">
-            <Button component="div" variant="contained" color="primary" disabled={!hasPreviousChunks} onClick={onPrevious}>Previous</Button>
+            <Button component="div" variant="contained" color="info" disabled={!hasPreviousChunks} onClick={onPrevious}>Previous</Button>
         </div>
         <div class="second_page__actions--right">
             {hasMoreChunks ? nextButton : finishButton}

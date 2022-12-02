@@ -12,21 +12,38 @@ import SecondPage from './components/SecondPage';
 import ThirdPage from './components/ThirdPage';
 import HomePage from './components/HomePage';
 import AppBar from './components/AppBar';
+import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import gray from '@mui/material/colors/grey';
+import { yellow, blueGrey } from '@mui/material/colors';
+import { paperClasses } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    secondary: { main: '#f9a825' },
+    info: { main: '#bdbdbd' },
+  },
+});
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
+
+
 root.render(
-  <div id="root" class="main_container">
-    <AppBar/>
-    <div class="stage">
-      <StepWizard>
-        <HomePage />
-        <FirstPage />
-        <SecondPage />
-        <ThirdPage />
-      </StepWizard>
+  <ThemeProvider theme={theme}>
+    <div id="root" class="main_container">
+      <AppBar />
+      <div class="stage">
+        <StepWizard>
+          <HomePage />
+          <FirstPage />
+          <SecondPage />
+          <ThirdPage />
+        </StepWizard>
+      </div>
     </div>
-  </div>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
