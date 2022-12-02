@@ -41,7 +41,7 @@ function ChunkingView({ isActive }) {
 
         let current = event.target.id;
         let elem = document.getElementById(current);
-        if (elem.getAttribute("chunked") == "false") {
+        if (elem.getAttribute("chunked") === "false") {
           let prevColor = elem.style.backgroundColor;
           elem.style.backgroundColor = "#DDDD0080";
           setHighlightedElement({ id: current, previousColor: prevColor });

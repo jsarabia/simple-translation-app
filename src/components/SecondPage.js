@@ -3,7 +3,7 @@ import DraftRepository from '../domain/storage/DraftRepository';
 import MyDraft from '../domain/MyDraft';
 import { useState, useEffect } from 'react';
 import myDraft from '../domain/MyDraft';
-import { Button, Fab } from '@mui/material';
+import { Button } from '@mui/material';
 
 
 function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish }) {
@@ -50,6 +50,8 @@ function SecondPage({ nextStep, isActive }) {
     }
 
     async function onFinishChunk() {
+        let translationText = document.getElementById('draftText');
+        myDraft.addTranslation(chunkNumber, translationText.value);
         ChunkText.updateDraft();
         const draft = ChunkText.getDraft()
         await DraftRepository.updateChapterDraft(draft);

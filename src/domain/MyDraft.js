@@ -4,7 +4,7 @@ let chunks = [
         text: '',
         translation: ""
     }
-];
+]; 
 
 let chapterText = [];
 
@@ -57,8 +57,8 @@ export default {
     },
 
     translationComplete() {
-        let values = chunks.map(x => x.translation != "");
-        return values.every(complete => complete == true);
+        let values = chunks.map(x => x.translation !== "");
+        return values.every(complete => complete === true);
     },
 
     getNextChunk(num) {
@@ -67,7 +67,7 @@ export default {
     },
 
     hasMoreChunks(num) {
-        if (num > chunks.length - 2) return false;
+        if (num >= chunks.length - 2) return false;
     
         return true;
     }

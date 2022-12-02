@@ -1,6 +1,5 @@
 import ChunkingView from './ChunkingView';
 import ChunkText from '../domain/ChunkText';
-import ChunkButton from './ChunkButton';
 import MyDraft from '../domain/MyDraft';
 import DraftRepository from '../domain/storage/DraftRepository';
 import { Button, Fab } from '@mui/material';

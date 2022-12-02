@@ -6,16 +6,13 @@ import './App.css';
 
 
 import reportWebVitals from './reportWebVitals';
-import BlindDraft from './components/BlindDraft';
 import FirstPage from './components/FirstPage';
 import SecondPage from './components/SecondPage';
 import ThirdPage from './components/ThirdPage';
 import HomePage from './components/HomePage';
 import AppBar from './components/AppBar';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import gray from '@mui/material/colors/grey';
-import { yellow, blueGrey } from '@mui/material/colors';
-import { paperClasses } from '@mui/material';
+
 
 const theme = createTheme({
   palette: {
