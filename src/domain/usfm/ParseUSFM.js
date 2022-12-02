@@ -37,4 +37,16 @@ async function loadChapterText(project, chapterNumber) {
     return versesList;
 }
 
-export { getChapterList, loadChapterText };
+async function getDocumentCode(project) {
+    const bookCodeQuery = `{
+        documents(withTags: "uuid_${project.id}") { 
+          header(id:"bookCode") 
+        } 
+      }`;
+
+      const result = await pk.gqlQuery(bookCodeQuery);
+      
+      return result["data"]["documents"][0]["header"];
+}
+
+export { getChapterList, loadChapterText, getDocumentCode };

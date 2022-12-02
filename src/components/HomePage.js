@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
 import ChunkText from "../domain/ChunkText";
-import { loadProjects } from "../domain/storage/ProjectStorage";
+import { loadProjects, updateProject } from "../domain/storage/ProjectStorage";
 import { importUSFM } from "../domain/ImportFile";
-import { loadChapterText, getChapterList } from "../domain/usfm/ParseUSFM";
+import { loadChapterText, getChapterList, getDocumentCode } from "../domain/usfm/ParseUSFM";
 import draftRepo from "../domain/storage/DraftRepository";
 import List from "@mui/material/List";
 import ListItemButton from '@mui/material/ListItemButton';
@@ -91,6 +91,11 @@ function HomePage(props) {
             }}
                 onChapterClick={
                     async (_chapter) => {
+                        if (activeProject.code == null) {
+                            let code = await getDocumentCode(activeProject);
+                            activeProject.code = code;
+                            await updateProject(activeProject);
+                        }
                         let chapterText = await loadChapterText(activeProject, _chapter);
                         await draftRepo.createChapterDraft(activeProject.id, _chapter);
                         const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
