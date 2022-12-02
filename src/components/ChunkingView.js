@@ -55,7 +55,7 @@ function ChunkingView({ isActive }) {
 
   return (
     <div class="first_page__content">
-      <div class="draft_wrap">
+      <div class="source_text_wrap">
         <div>
           <p class="">
           {out}

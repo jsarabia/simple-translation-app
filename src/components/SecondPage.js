@@ -76,10 +76,14 @@ function SecondPage({ nextStep, isActive }) {
                 })();
             }} />
             <div class="blind_draft__container">
-                <div id="chunkText">{sourceText}</div>
-                <textarea id="draftText" rows="20" cols="100" onInput={() => {
+                <div class="second_page__center-text">
+                    <div class="text_wrap draft_text" id="chunkText">{sourceText}</div>
+                </div>
+                <div class="text_wrap second_page__input_container">
+                <textarea class="second_page__input text_wrap" id="draftText" onInput={() => {
                     document.getElementById("chunkText").style.visibility = "hidden";
                 }}></textarea>
+                </div>
             </div>
         </div>
     )
