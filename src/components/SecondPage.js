@@ -3,17 +3,20 @@ import DraftRepository from '../domain/storage/DraftRepository';
 import MyDraft from '../domain/MyDraft';
 import { useState, useEffect } from 'react';
 import myDraft from '../domain/MyDraft';
-import { Button } from '@mui/material';
-
+import { Button, IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish }) {
 
-    const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained" color="info">Next</Button>);
-    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary">Finish</Button>);
+    const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained" color="info" endIcon={<ArrowForwardIcon/>}>Next</Button>);
+    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary" endIcon={<ArrowForwardIcon/>}>Finish</Button>);
 
     return (<div class="second_page__actions__container">
         <div class="second_page__actions--left">
-            <Button component="div" variant="contained" color="info" disabled={!hasPreviousChunks} onClick={onPrevious}>Previous</Button>
+            <Button component="div" variant="contained" color="info" disabled={!hasPreviousChunks} onClick={onPrevious} startIcon={<ArrowBackIcon/>}>
+                Previous
+            </Button>
         </div>
         <div class="second_page__actions--right">
             {hasMoreChunks ? nextButton : finishButton}

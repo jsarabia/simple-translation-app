@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import MyDraft from '../domain/MyDraft';
 import PrepareDownloadText from '../domain/PrepareDownloadText'
 import { Button, Fab, TextareaAutosize } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
 
 function TopBar({bookCode, chapterNumber}) {
 
@@ -24,6 +25,7 @@ function TopBar({bookCode, chapterNumber}) {
         <Button component="div" color="secondary" variant="contained" onClick={() => {
             saveTextAsFile(PrepareDownloadText.process(bookCode, chapterNumber, document.getElementById("final").value), `${bookCode}_${chapterNumber}_draft.usfm`);
         }}>
+            <DownloadIcon/>
             Download
         </Button>
     </div>);

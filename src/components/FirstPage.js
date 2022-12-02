@@ -6,10 +6,12 @@ import { Button, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 function TopBar({ onNext }) {
     return (<div class="home_page__top_bar">
-        <Button component="div" color="info" variant="contained" onClick={onNext}>
+        <Button component="div" color="info" variant="contained" onClick={onNext} endIcon={<ArrowForwardIcon/>}>
             Next
         </Button>
     </div>);
