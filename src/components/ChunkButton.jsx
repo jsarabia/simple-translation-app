@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ChunkText from "../domain/ChunkText";
-import Draft from "./Draft.js";
+import Draft from "./Draft";
 
 function ChunkButton({nextStep, isActive}) {
 
