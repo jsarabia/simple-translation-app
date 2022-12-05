@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
 import ChunkText from "../domain/ChunkText";
-import { loadProjects, updateProject } from "../domain/storage/ProjectStorage";
+import { loadProjects, updateProject, removeProject } from "../domain/storage/ProjectStorage";
 import { importUSFM } from "../domain/ImportFile";
 import { loadChapterText, getChapterList, getDocumentCode } from "../domain/usfm/ParseUSFM";
 import draftRepo from "../domain/storage/DraftRepository";
@@ -10,10 +10,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
+import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
+import { IconButton, ListItem } from "@mui/material";
 
 
 function SourcesListItem(props) {
@@ -24,7 +26,7 @@ function SourcesListItem(props) {
     };
 
     return (<>
-        <ListItemButton sx={{border: .1, margin: "10px"}} onClick={() => {
+        <ListItemButton sx={{ border: .1, margin: "10px" }} onClick={() => {
             handleClick();
             props.onClick(props.source);
         }
@@ -37,6 +39,27 @@ function SourcesListItem(props) {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit class="text_content">
             <List component="div" disablePadding>
+
+                <ListItem
+                    secondaryAction={
+                        <IconButton edge="end" aria-label="delete" onClick={() => {
+                            (async () => { 
+                                await removeProject(props.source.id);
+                                for (chapter of props.chapters) {
+                                    await draftRepo.removeDraft(chapter.id);
+                                }
+                            })()
+                        }}>
+                            <DeleteIcon />
+                        </IconButton>
+                    }
+                >
+                    <ListItemText
+                        primary="Delete Book"
+                        
+                    />
+                </ListItem>,
+
                 {props.chapters.map(x => {
                     return (<ListItemButton sx={{ pl: 8 }} onClick={() => {
                         props.onChapterClick(x);

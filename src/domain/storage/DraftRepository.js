@@ -71,4 +71,8 @@ async function createChapterDraft(sourceId, chapterNumber) {
     await draftRepo.setItem(mapperTable, drafts);
 }
 
-export default { getChapterDraft, updateChapterDraft, createChapterDraft };
+async function removeDraft(draftId) {
+    await draftRepo.removeItem(draftId);
+}
+
+export default { getChapterDraft, updateChapterDraft, createChapterDraft, removeDraft };
