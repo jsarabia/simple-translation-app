@@ -8,6 +8,7 @@ function importUSFM(file) {
             const usfm = reader.result.replaceAll(s5Regex, "");
             console.log(usfm);
             await storeProject(usfm, file.name);
+            window.location.reload();
         };
 
     reader.readAsText(file);
