@@ -38,7 +38,8 @@ function getDraft() {
 }
 
 function addChunk(chunkRange) {
-    undo.push(chunkRange)
+    undo.push(chunkRange);
+    redo = [];
 }
 
 function selectChunks() {
@@ -82,11 +83,12 @@ function setLastElement(last) {
 function undoChunk() {
     if (undo.length > 0) {
         let chunk = undo.pop();
-        modulo--;
+        modulo++;
         for (let i = chunk.start; i <= chunk.end; i++) {
             document.getElementById(i).style.backgroundColor = "#00000000";
             document.getElementById(i).setAttribute("chunked", "false");
         }
+        lastElement = (undo.length > 0)? undo[undo.length - 1].end + 1: 0;
         redo.push(chunk);
     }
 }
@@ -99,6 +101,7 @@ function redoChunk() {
             document.getElementById(i).setAttribute("chunked", "true");
         }
         modulo++;
+        lastElement = (undo.length > 0)? undo[undo.length - 1].end + 1 : 0;
         undo.push(chunk);
     }
 }
