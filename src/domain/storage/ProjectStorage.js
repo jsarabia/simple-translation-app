@@ -31,7 +31,7 @@ async function updateProject(project) {
 async function removeProject(project) {
     await projectRepo.removeItem(project.id);
     const registry = await projectRepo.getItem("sources_list");
-    const updated = registry.filter(x => x === project.id);
+    const updated = registry.filter(x => x !== project.id);
     await projectRepo.setItem("sources_list", updated);
 }
 

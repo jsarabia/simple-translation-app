@@ -4,7 +4,7 @@ import localForage from 'localforage';
 const mapperTable = "draft_mapper";
 const repoTable = "draft_repository";
 
-const draftRepo = localForage.createInstance({name: repoTable});
+const draftRepo = localForage.createInstance({ name: repoTable });
 
 /**
  * Finds the draft list for the
@@ -13,11 +13,15 @@ const draftRepo = localForage.createInstance({name: repoTable});
  * @returns the chapter draft for the given source and chapter
  */
 async function getChapterDraft(sourceId, chapterNumber) {
-    const books = await draftRepo.getItem(mapperTable);
-    const drafts = books[sourceId];
-    const token = drafts.find((x) => x.chapterNumber === chapterNumber || x.chapter === chapterNumber);
-    const draft = await draftRepo.getItem(token.id);
-    return draft;
+    try {
+        const books = await draftRepo.getItem(mapperTable);
+        const drafts = books[sourceId];
+        const token = drafts.find((x) => x.chapterNumber === chapterNumber || x.chapter === chapterNumber);
+        const draft = await draftRepo.getItem(token.id);
+        return draft;
+    } catch(error) {
+        return undefined;
+    }
 }
 
 async function updateChapterDraft(draft) {
@@ -48,9 +52,9 @@ async function updateChapterDraft(draft) {
  */
 async function createChapterDraft(sourceId, chapterNumber) {
     const draftId = uuidv4().replaceAll("-", "");
-    const draft = {id: draftId, sourceId: sourceId, chapterNumber: chapterNumber, content: []};
+    const draft = { id: draftId, sourceId: sourceId, chapterNumber: chapterNumber, content: [] };
     let drafts = await draftRepo.getItem(mapperTable);
-    const draftToken = {'chapter': chapterNumber, 'id': draftId};
+    const draftToken = { 'chapter': chapterNumber, 'id': draftId };
     if (drafts === null) {
         console.log("Creating drafts table for the first time")
         drafts = {};

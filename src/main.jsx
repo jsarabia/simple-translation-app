@@ -9,6 +9,7 @@ import ThirdPage from './components/ThirdPage';
 import HomePage from './components/HomePage';
 import AppBar from './components/AppBar';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import { ProjectContextProvider } from './context/upload/ProjectsContext';
 
 
 const theme = createTheme({
@@ -21,11 +22,9 @@ const theme = createTheme({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-
-
-
 root.render(
   <ThemeProvider theme={theme}>
+    <ProjectContextProvider>
     <div id="root" class="main_container">
       <AppBar />
       <div class="stage">
@@ -37,5 +36,6 @@ root.render(
         </StepWizard>
       </div>
     </div>
+    </ProjectContextProvider>
   </ThemeProvider>
 );

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import MyDraft from "../domain/MyDraft";
 import ChunkText from "../domain/ChunkText";
-import { loadProjects, updateProject, removeProject } from "../domain/storage/ProjectStorage";
-import { importUSFM } from "../domain/ImportFile";
+import { updateProject, removeProject } from "../domain/storage/ProjectStorage";
 import { loadChapterText, getChapterList, getDocumentCode } from "../domain/usfm/ParseUSFM";
 import draftRepo from "../domain/storage/DraftRepository";
 import List from "@mui/material/List";
@@ -16,10 +15,12 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { IconButton, ListItem } from "@mui/material";
+import { useProjects, loadProjects, createProject, deleteProject } from "../context/upload/ProjectsContext";
 
 
 function SourcesListItem(props) {
     const [open, setOpen] = useState(false);
+    const [projects, dispatch] = useProjects();
 
     const handleClick = () => {
         setOpen(!open);
@@ -43,12 +44,7 @@ function SourcesListItem(props) {
                 <ListItem
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete" onClick={() => {
-                            (async () => { 
-                                await removeProject(props.source.id);
-                                for (chapter of props.chapters) {
-                                    await draftRepo.removeDraft(chapter.id);
-                                }
-                            })()
+                            deleteProject(dispatch, props.source, props.chapters);
                         }}>
                             <DeleteIcon />
                         </IconButton>
@@ -56,7 +52,7 @@ function SourcesListItem(props) {
                 >
                     <ListItemText
                         primary="Delete Book"
-                        
+
                     />
                 </ListItem>,
 
@@ -91,16 +87,18 @@ function TopBar() {
 
 function HomePage(props) {
 
-    const [projectCount, setProjectCount] = useState([]);
     const [activeProject, setActiveProject] = useState({});
     const [chapterList, setChapterList] = useState([]);
 
+    const [{projects, type}, dispatch] = useProjects();
+
+    const projectCount = projects ?? [];
+
     useEffect(() => {
-        async function setup() {
-            let projects = await loadProjects();
-            setProjectCount(projects);
-        }
-        setup();
+        console.log(`status is ${type}`);
+        //if (status === "idle") {
+            loadProjects(dispatch);
+        //}
     }, []);
 
     return <div class="home_page_container">
@@ -132,7 +130,7 @@ function HomePage(props) {
             <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
                 const files = event.target.files;
                 for (const file of files) {
-                    importUSFM(file);
+                    createProject(dispatch, projectCount, file);
                 }
             }}></input>
         </div>
