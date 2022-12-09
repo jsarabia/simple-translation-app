@@ -193,6 +193,7 @@
   grid-template-rows: 1fr 1fr;
   justify-items: center;
   align-content: center;
+  min-height: 100%;
 }
 
 .source_text_wrap {
