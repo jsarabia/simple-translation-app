@@ -245,18 +245,29 @@
 .third_page__draft_container {
   grid-column: 2;
   grid-row: 2;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   justify-content: center;
-  height: 100%;
+  justify-items: center;
+  min-height: 100%;
+  padding: 1em;
 }
 
 .third_page__draft_container > textarea {
-  flex: 1;
-  min-height: 90%;
-  max-width: 700px;
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
+  width: 100%;
+  min-height: 100%;
+  max-width: 800px;
 }
 
 .third_page__input {
-  height: 90vh;
+ 
+}
+
+textarea {
+  border: 1px;
+  border-style: solid;
 }
