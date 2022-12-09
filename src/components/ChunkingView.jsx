@@ -31,6 +31,8 @@ function ChunkingView({ isActive }) {
     var words = t.split(" ");
     for (let word of words) {
       count++;
+      // 65 ch 
+      // margin 0 auto
       out.push((<span class="draft_text" chunked="false" id={count} onClick={(event) => {
         if (highlightedElement != null) {
           let elem = document.getElementById(highlightedElement.id);
@@ -57,9 +59,7 @@ function ChunkingView({ isActive }) {
     <div class="first_page__content">
       <div class="source_text_wrap">
         <div>
-          <p class="">
           {out}
-          </p>
         </div>
       </div>
     </div>

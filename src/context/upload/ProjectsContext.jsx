@@ -75,7 +75,7 @@ function ProjectContextProvider({ children }) {
 function useProjects() {
     const context = useContext(ProjectContext);
     if (context === undefined) {
-        throw new Error('useCount must be used within a CountProvider');
+        throw new Error('useProject must be used within a ProjectContextProvider');
     }
     return context;
 }
