@@ -14,13 +14,52 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { IconButton, ListItem } from "@mui/material";
+import { Button, IconButton, ListItem } from "@mui/material";
 import { useProjects, loadProjects, createProject, deleteProject } from "../context/upload/ProjectsContext";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Cancel } from "@mui/icons-material";
+
+
+function DeleteProjectDialog({ onConfirm, onCancel, open }) {
+    return (
+        <div>
+            <Dialog
+                open={open}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Delete Book?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Deleting this book will delete all of its chapers.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCancel}>
+                        <Cancel />
+                        Cancel
+                    </Button>
+                    <Button onClick={onConfirm} autoFocus>
+                        <DeleteIcon />
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+}
 
 
 function SourcesListItem(props) {
     const [open, setOpen] = useState(false);
     const [projects, dispatch] = useProjects();
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(!open);
@@ -44,16 +83,20 @@ function SourcesListItem(props) {
                 <ListItem
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete" onClick={() => {
-                            deleteProject(dispatch, props.source, props.chapters);
+                            setDialogOpen(true);
                         }}>
                             <DeleteIcon />
                         </IconButton>
                     }
                 >
-                    <ListItemText
-                        primary="Delete Book"
-
-                    />
+                    <ListItemText primary="Delete Book" />
+                    <DeleteProjectDialog
+                        open={dialogOpen} onCancel={() => { setDialogOpen(false); }}
+                        onConfirm={() => { 
+                            setDialogOpen(false);
+                            deleteProject(dispatch, props.source, props.chapters); 
+                            }}>
+                    </DeleteProjectDialog>
                 </ListItem>,
 
                 {props.chapters.map(x => {
@@ -90,14 +133,14 @@ function HomePage(props) {
     const [activeProject, setActiveProject] = useState({});
     const [chapterList, setChapterList] = useState([]);
 
-    const [{projects, type}, dispatch] = useProjects();
+    const [{ projects, type }, dispatch] = useProjects();
 
     const projectCount = projects ?? [];
 
     useEffect(() => {
         console.log(`status is ${type}`);
         //if (status === "idle") {
-            loadProjects(dispatch);
+        loadProjects(dispatch);
         //}
     }, []);
 
