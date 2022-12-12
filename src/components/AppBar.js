@@ -6,7 +6,7 @@ import { importUSFM } from "../domain/ImportFile";
 
 function AppBar() {
     return (
-        <div class="app_bar">
+        <div className="app_bar">
             <Button component="div" color="info" variant="contained" sx={{margin: 1, minWidth:48, maxWidth: 48, height: 48}} onClick={() => { window.location.reload() }}>
                 <HomeIcon />
             </Button>
