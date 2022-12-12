@@ -1,6 +1,6 @@
 {
   "homepage": "./",
-  "name": "react2android",
+  "name": "simple-translation-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
