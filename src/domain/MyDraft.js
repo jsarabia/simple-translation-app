@@ -70,5 +70,9 @@ export default {
         if (num >= chunks.length - 2) return false;
     
         return true;
+    },
+
+    getChunks() {
+        return chunks;
     }
 }

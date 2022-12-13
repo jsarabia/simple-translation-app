@@ -5,6 +5,7 @@ import './index.css';
 import './App.css';
 import FirstPage from './components/FirstPage';
 import SecondPage from './components/SecondPage';
+import ReviewPage from './components/ReviewPage';
 import ThirdPage from './components/ThirdPage';
 import HomePage from './components/HomePage';
 import AppBar from './components/AppBar';
@@ -34,6 +35,7 @@ root.render(
               <HomePage />
               <FirstPage />
               <SecondPage />
+              <ReviewPage />
               <ThirdPage />
             </StepWizard>
           </div>

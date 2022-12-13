@@ -10,7 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish }) {
 
     const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained" color="info" endIcon={<ArrowForwardIcon/>}>Next</Button>);
-    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary" endIcon={<ArrowForwardIcon/>}>Finish</Button>);
+    const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary" endIcon={<ArrowForwardIcon/>}>Review</Button>);
 
     return (<div class="second_page__actions__container">
         <div class="second_page__actions--left">
