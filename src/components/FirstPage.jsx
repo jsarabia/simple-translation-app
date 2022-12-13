@@ -16,8 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Cancel } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BackspaceIcon from '@mui/icons-material/Backspace';
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 function ResetChunksDialog({ onConfirm, onCancel, open }) {
     return (
@@ -61,6 +60,7 @@ function TopBar({ onNext, onReset }) {
     return (<div className="grid grid-cols-3 grid-rows-1 items-center h-16 min-h-full col-start-1 col-end-7 bg-blue-800">
         <div className="col-start-2 flex-grow flex justify-center align-center">
             <Button component="div" color="info" variant="contained" onClick={openResetDialog}>
+                <ClearIcon/>
                 Reset
             </Button>
         </div>
