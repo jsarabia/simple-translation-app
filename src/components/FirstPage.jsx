@@ -8,14 +8,67 @@ import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useDraft, resetDraft } from '../context/upload/DraftContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Cancel } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
+
+
+function ResetChunksDialog({ onConfirm, onCancel, open }) {
+    return (
+        <div>
+            <Dialog
+                open={open}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Reset chunks?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Resetting chunks will delete the blind draft for this chapter. This cannot be undone.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCancel}>
+                        <Cancel />
+                        Cancel
+                    </Button>
+                    <Button onClick={onConfirm} autoFocus>
+                        <DeleteIcon />
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+}
 
 function TopBar({ onNext, onReset }) {
+
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    function openResetDialog() {
+        setDialogOpen(!dialogOpen);
+    }
+
     return (<div className="home_page__top_bar">
-        <Button component="div" color="secondary" variant="contained" onClick={onReset}>
+        <Button component="div" color="secondary" variant="contained" onClick={openResetDialog}>
             Reset
         </Button>
+        <ResetChunksDialog
+            open={dialogOpen} onCancel={() => { setDialogOpen(false); }}
+            onConfirm={() => {
+                setDialogOpen(false);
+                onReset();
+            }}>
+        </ResetChunksDialog>
         <Button component="div" color="info" variant="contained" onClick={onNext} endIcon={<ArrowForwardIcon />}>
             Next
         </Button>
@@ -24,7 +77,7 @@ function TopBar({ onNext, onReset }) {
 
 function FirstPage({ nextStep, isActive }) {
 
-    const [{draft, status}, dispatch] = useDraft();
+    const [{ draft, status }, dispatch] = useDraft();
 
     async function completeBlindDraft() {
         ChunkText.updateDraft();
