@@ -6,8 +6,10 @@ function stripExcessNewlines(textToProcess) {
 function convertNewlinesToVerseMarkers(textToProcess) {
     let verses = textToProcess.split("\n");
     let builder = "";
-    for (let i = 0; i < verses.length; i++) {
-        builder += `\\p ${i + 1} ${verses[i]}\n`;
+    for (const verse of verses) {
+        if (verse != null && verse.trim() !== '') {
+            builder += `\\p ${verse}\n`;
+        }
     }
     return builder;
 }
