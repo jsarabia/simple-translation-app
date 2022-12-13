@@ -16,7 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Cancel } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 
 function ResetChunksDialog({ onConfirm, onCancel, open }) {
@@ -58,10 +58,12 @@ function TopBar({ onNext, onReset }) {
         setDialogOpen(!dialogOpen);
     }
 
-    return (<div className="home_page__top_bar">
-        <Button component="div" color="secondary" variant="contained" onClick={openResetDialog}>
-            Reset
-        </Button>
+    return (<div className="grid grid-cols-3 grid-rows-1 items-center h-16 min-h-full col-start-1 col-end-7 bg-blue-800">
+        <div className="col-start-2 flex-grow flex justify-center align-center">
+            <Button component="div" color="info" variant="contained" onClick={openResetDialog}>
+                Reset
+            </Button>
+        </div>
         <ResetChunksDialog
             open={dialogOpen} onCancel={() => { setDialogOpen(false); }}
             onConfirm={() => {
@@ -69,9 +71,11 @@ function TopBar({ onNext, onReset }) {
                 onReset();
             }}>
         </ResetChunksDialog>
-        <Button component="div" color="info" variant="contained" onClick={onNext} endIcon={<ArrowForwardIcon />}>
-            Next
-        </Button>
+        <div className="col-start-3 row-start-1 flex justify-end pr-5">
+            <Button component="div" color="info" variant="contained" onClick={onNext} endIcon={<ArrowForwardIcon />}>
+                Next
+            </Button>
+        </div>
     </div>);
 }
 
