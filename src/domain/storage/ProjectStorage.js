@@ -63,4 +63,8 @@ async function loadProjects() {
     return projects;
 }
 
-export { getProjects, updateProject, removeProject, storeProject, loadProjects };
+async function getProject(id) {
+    return await projectRepo.getItem(id);
+}
+
+export { getProjects, updateProject, removeProject, storeProject, loadProjects , getProject};

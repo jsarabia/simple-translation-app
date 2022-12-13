@@ -10,6 +10,7 @@ import HomePage from './components/HomePage';
 import AppBar from './components/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ProjectContextProvider } from './context/upload/ProjectsContext';
+import { DraftContextProvider } from './context/upload/DraftContext';
 
 
 const theme = createTheme({
@@ -25,17 +26,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ThemeProvider theme={theme}>
     <ProjectContextProvider>
-      <div id="root" class="main_container">
-        <AppBar />
-        <div class="stage">
-          <StepWizard>
-            <HomePage />
-            <FirstPage />
-            <SecondPage />
-            <ThirdPage />
-          </StepWizard>
+      <DraftContextProvider>
+        <div id="root" className="main_container">
+          <AppBar />
+          <div className="stage">
+            <StepWizard>
+              <HomePage />
+              <FirstPage />
+              <SecondPage />
+              <ThirdPage />
+            </StepWizard>
+          </div>
         </div>
-      </div>
+      </DraftContextProvider>
     </ProjectContextProvider>
   </ThemeProvider>
 );

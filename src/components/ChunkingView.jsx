@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
 import MyDraft from '../domain/MyDraft';
 import ChunkText from '../domain/ChunkText';
+import { useDraft, DRAFT_ACTIONS } from '../context/upload/DraftContext';
 
 function ChunkingView({ isActive }) {
 
+  const [{draft, status}, reducer] = useDraft();
   const [highlightedElement, setHighlightedElement] = useState()
   const [text, setText] = useState([]);
   const [firstRenderDone, setFirstRenderDone] = useState(false);
 
   useEffect(() => {
     setText(MyDraft.getChapterText());
-    if (isActive) {
+    if (isActive && status == DRAFT_ACTIONS.LOADED) {
+      console.log("should update first render");
       setFirstRenderDone(true);
+    } else {
+      console.log(draft);
     }
-  }, [isActive]);
+  }, [status]);
 
-  // your other useEffect (that works as componetDidUpdate)
   useEffect(() => {
     if (firstRenderDone) {
-      console.log("should restore highlight");
       ChunkText.restoreHighlight();
+      console.log("restored highlight");
     }
-  }, [firstRenderDone]);
+  }, [firstRenderDone, draft]);
 
   let out = [];
 
@@ -58,7 +62,7 @@ function ChunkingView({ isActive }) {
   return (
     <div class="first_page__content">
       <div class="source_text_wrap">
-        <div>
+        <div id="chunk_holder">
           {out}
         </div>
       </div>

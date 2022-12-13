@@ -52,7 +52,7 @@ function ThirdPage({ isActive }) {
         <div class="third_page__container">
             <TopBar bookCode={draft.bookCode} chapterNumber={draft.chapterNumber}/>
             <div class="third_page__draft_container">
-                <textarea class="" sx={{width: 600}} id="final">{draft}</textarea>
+                <textarea class="" id="final"></textarea>
             </div>
         </div>
     )

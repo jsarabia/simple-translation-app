@@ -63,6 +63,14 @@ function restoreHighlight() {
     }
 }
 
+function clearHighlight() {
+    const draft_holder = document.getElementById("chunk_holder");
+    for (const elm of draft_holder.children) {
+        elm.style.backgroundColor = "#00000000";
+        elm.setAttribute("chunked", "false");
+    }
+}
+
 function highlightChunks(start, end) {
     let color = (modulo % 2 === 0) ? primaryColor : secondaryColor;
     modulo++;
@@ -118,6 +126,15 @@ function getChunks() {
     return undo.map(x => x);
 }
 
+function clear() {
+    undo = [];
+    redo = [];
+    lastElement = 1;
+    modulo = 0;
+    _draft = {};
+    clearHighlight();
+}
+
 
 export default {
     addChunk,
@@ -130,5 +147,6 @@ export default {
     loadDraft,
     updateDraft,
     getDraft,
-    restoreHighlight
+    restoreHighlight,
+    clear
 }

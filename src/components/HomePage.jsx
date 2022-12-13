@@ -16,6 +16,7 @@ import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { Button, IconButton, ListItem } from "@mui/material";
 import { useProjects, loadProjects, createProject, deleteProject } from "../context/upload/ProjectsContext";
+import { useDraft, loadDraft } from "../context/upload/DraftContext";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -55,7 +56,6 @@ function DeleteProjectDialog({ onConfirm, onCancel, open }) {
     );
 }
 
-
 function SourcesListItem(props) {
     const [open, setOpen] = useState(false);
     const [projects, dispatch] = useProjects();
@@ -77,9 +77,8 @@ function SourcesListItem(props) {
             <ListItemText primary={props.source.title} secondary={props.source.version} />
             {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit class="text_content">
+        <Collapse in={open} timeout="auto" unmountOnExit className="text_content">
             <List component="div" disablePadding>
-
                 <ListItem
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete" onClick={() => {
@@ -92,10 +91,10 @@ function SourcesListItem(props) {
                     <ListItemText primary="Delete Book" />
                     <DeleteProjectDialog
                         open={dialogOpen} onCancel={() => { setDialogOpen(false); }}
-                        onConfirm={() => { 
+                        onConfirm={() => {
                             setDialogOpen(false);
-                            deleteProject(dispatch, props.source, props.chapters); 
-                            }}>
+                            deleteProject(dispatch, props.source, props.chapters);
+                        }}>
                     </DeleteProjectDialog>
                 </ListItem>,
 
@@ -125,7 +124,7 @@ function SourcesList(props) {
 }
 
 function TopBar() {
-    return (<div class="home_page__top_bar"></div>);
+    return (<div className="home_page__top_bar"></div>);
 }
 
 function HomePage(props) {
@@ -134,6 +133,7 @@ function HomePage(props) {
     const [chapterList, setChapterList] = useState([]);
 
     const [{ projects, type }, dispatch] = useProjects();
+    const [ _ , dispatchDraft] = useDraft();
 
     const projectCount = projects ?? [];
 
@@ -144,9 +144,9 @@ function HomePage(props) {
         //}
     }, []);
 
-    return <div class="home_page_container">
+    return <div className="home_page_container">
         <TopBar />
-        <div class="home_page__list">
+        <div className="home_page__list">
             <SourcesList chapters={chapterList} sources={projectCount} onClick={async (source) => {
                 const list = await getChapterList(source);
                 setActiveProject(source);
@@ -155,17 +155,7 @@ function HomePage(props) {
             }}
                 onChapterClick={
                     async (_chapter) => {
-                        if (activeProject.code == null) {
-                            let code = await getDocumentCode(activeProject);
-                            activeProject.code = code;
-                            await updateProject(activeProject);
-                        }
-                        let chapterText = await loadChapterText(activeProject, _chapter);
-                        await draftRepo.createChapterDraft(activeProject.id, _chapter);
-                        const draft = await draftRepo.getChapterDraft(activeProject.id, _chapter);
-                        draft.bookCode = activeProject.code;
-                        ChunkText.loadDraft(draft);
-                        MyDraft.setChapterText(chapterText);
+                        loadDraft(dispatchDraft, activeProject, _chapter);
                         props.nextStep();
                     }
                 }>
