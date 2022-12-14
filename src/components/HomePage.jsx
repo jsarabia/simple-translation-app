@@ -57,17 +57,12 @@ function DeleteProjectDialog({ onConfirm, onCancel, open }) {
 }
 
 function SourcesListItem(props) {
-    const [open, setOpen] = useState(false);
     const [projects, dispatch] = useProjects();
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    const handleClick = () => {
-        setOpen(!open);
-    };
-
     return (<>
         <ListItemButton sx={{ border: .1, margin: "10px" }} onClick={() => {
-            handleClick();
+            props.onListItemClicked(props.source.id);
             props.onClick(props.source);
         }
         }>
@@ -75,9 +70,9 @@ function SourcesListItem(props) {
                 <BookIcon />
             </ListItemIcon>
             <ListItemText primary={props.source.title} secondary={props.source.version} />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {props.openId === props.source.id ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit className="text_content">
+        <Collapse in={props.openId === props.source.id} timeout="auto" unmountOnExit className="text_content">
             <List component="div" disablePadding>
                 <ListItem
                     secondaryAction={
@@ -115,9 +110,27 @@ function SourcesListItem(props) {
 }
 
 function SourcesList(props) {
+    const [open, setOpen] = useState("");
+
+    const handleClick = (id) => {
+        console.log(`id clicked is ${id}`);
+        if (open === id) {
+            setOpen("");
+        } else {
+            setOpen(id);
+        }
+    };
+
     return (<List>
         {props.sources.map(x => {
-            return (<SourcesListItem onClick={props.onClick} onChapterClick={props.onChapterClick} source={x} chapters={props.chapters} />)
+            return (<SourcesListItem 
+                onClick={props.onClick} 
+                onChapterClick={props.onChapterClick} 
+                source={x} 
+                chapters={props.chapters}
+                openId={open} 
+                onListItemClicked={handleClick}
+                />)
         }
         )}
     </List>)
