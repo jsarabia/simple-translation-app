@@ -272,3 +272,8 @@ textarea {
   border-style: solid;
   padding: 1em;
 }
+
+.paragraph_text {
+  text-indent: 2em;
+  margin-bottom: 1.5em;
+}
