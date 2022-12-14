@@ -1,7 +1,7 @@
 import MyDraft from "./MyDraft";
 import { Chunk } from "../entities/Chunk";
 
-let lastElement = 1;
+let lastElement = 0;
 let modulo = 0;
 
 let redo = [];
@@ -13,7 +13,7 @@ const primaryColor = "#e54686";
 const secondaryColor = "#2692d0";
 
 function loadDraft(draft) {
-    lastElement = 1;
+    lastElement = 0;
     modulo = 0;
     redo = [];
     undo = [];
