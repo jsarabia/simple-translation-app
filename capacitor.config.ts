@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'example.react2android',
-  appName: 'react2android',
-  webDir: 'build',
+  appId: 'com.example.app',
+  appName: 'simple-translation-app',
+  webDir: 'dist',
   bundledWebRuntime: false
 };
 
