@@ -33,23 +33,25 @@ function SecondPage({ nextStep, isActive }) {
     function onNextChunk() {
         let translationText = document.getElementById('draftText');
         myDraft.addTranslation(chunkNumber, translationText.value);
-        const newChunk = myDraft.getNextChunk(chunkNumber + 1);
+        let nextChunk = chunkNumber + 1;
+        const newChunk = myDraft.getNextChunk(nextChunk);
         setSourceText(newChunk.text);
         document.getElementById('draftText').value = newChunk.translation;
-        setChunkNumber(chunkNumber + 1)
+        setChunkNumber(nextChunk)
         document.getElementById("chunkText").style.visibility = "visible";
-        setHasMoreChunks(myDraft.hasMoreChunks(chunkNumber));
+        setHasMoreChunks(myDraft.hasMoreChunks(nextChunk));
     }
 
     function onPreviousChunk() {
         let translationText = document.getElementById('draftText');
         myDraft.addTranslation(chunkNumber, translationText.value);
-        const newChunk = myDraft.getNextChunk(chunkNumber - 1);
+        let nextChunk = chunkNumber -1;
+        const newChunk = myDraft.getNextChunk(nextChunk);
         setSourceText(newChunk.text);
         document.getElementById('draftText').value = newChunk.translation;
-        setChunkNumber(chunkNumber - 1)
+        setChunkNumber(nextChunk)
         document.getElementById("chunkText").style.visibility = "visible";
-        setHasMoreChunks(myDraft.hasMoreChunks(chunkNumber));
+        setHasMoreChunks(myDraft.hasMoreChunks(nextChunk));
     }
 
     async function onFinishChunk() {

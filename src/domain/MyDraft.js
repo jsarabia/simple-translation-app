@@ -67,7 +67,7 @@ export default {
     },
 
     hasMoreChunks(num) {
-        if (num >= chunks.length - 2) return false;
+        if (num >= chunks.length - 1) return false;
     
         return true;
     },
