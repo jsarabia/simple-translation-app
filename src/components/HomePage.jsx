@@ -14,7 +14,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { Button, IconButton, ListItem } from "@mui/material";
+import { Button, Divider, IconButton, ListItem } from "@mui/material";
 import { useProjects, loadProjects, createProject, deleteProject } from "../context/upload/ProjectsContext";
 import { useDraft, loadDraft } from "../context/upload/DraftContext";
 import Dialog from '@mui/material/Dialog';
@@ -75,6 +75,7 @@ function SourcesListItem(props) {
         <Collapse in={props.openId === props.source.id} timeout="auto" unmountOnExit className="text_content">
             <List component="div" disablePadding>
                 <ListItem
+                    sx={{ml: 4, width: "90%", borderBottom: 1}}
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete" onClick={() => {
                             setDialogOpen(true);
