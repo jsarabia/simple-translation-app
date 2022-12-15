@@ -21,7 +21,7 @@ function loadDraft(draft) {
         for (const chunk of draft.content) {
             addChunk(new Chunk(chunk.start, chunk.end, chunk.text, chunk.translation, chunk.blindDrafted));
         }
-        setLastElement(draft.content[draft.content.length - 1].end);
+        setLastElement(draft.content[draft.content.length - 1].end + 1);
     }
     _draft = draft;
 }
