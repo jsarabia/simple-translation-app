@@ -36,6 +36,7 @@ function ChunkingView({ isActive }) {
     out.push(
       <p className="paragraph_text">
         {words.map((word) => {
+          count++;
           let spannedText = (<span class="draft_text" chunked="false" id={count} onClick={(event) => {
             if (highlightedElement != null) {
               let elem = document.getElementById(highlightedElement.id);
@@ -52,12 +53,12 @@ function ChunkingView({ isActive }) {
               setHighlightedElement({ id: current, previousColor: prevColor });
             }
           }}>{word} </span>);
-          count++;
           return spannedText;
         })}
       </p>
     );
-    out.push((<span class="draft_text"> </span>));
+    count++;
+    out.push((<br chunked="false" id={count}></br>));
   }
 
   return (

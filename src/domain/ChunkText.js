@@ -1,7 +1,7 @@
 import MyDraft from "./MyDraft";
 import { Chunk } from "../entities/Chunk";
 
-let lastElement = 0;
+let lastElement = 1;
 let modulo = 0;
 
 let redo = [];
@@ -13,7 +13,7 @@ const primaryColor = "#e54686";
 const secondaryColor = "#2692d0";
 
 function loadDraft(draft) {
-    lastElement = 0;
+    lastElement = 1;
     modulo = 0;
     redo = [];
     undo = [];
@@ -77,6 +77,11 @@ function highlightChunks(start, end) {
     let text = "";
     for (var i = start; i <= end; i++) {
         const element = document.getElementById(i)
+        console.log(element);
+        if (element == null) {
+            console.log(i);
+            continue;
+        }
         element.style.backgroundColor = color;
         element.setAttribute("chunked", "true");
         text += element.textContent;
