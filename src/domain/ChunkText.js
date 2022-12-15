@@ -66,6 +66,12 @@ function restoreHighlight() {
 function clearHighlight() {
     const draft_holder = document.getElementById("chunk_holder");
     for (const elm of draft_holder.children) {
+        if (elm.nodeName == "P") {
+            for (const pelm of elm.children) {
+                pelm.style.backgroundColor = "#00000000";
+                pelm.setAttribute("chunked", "false");        
+            }
+        }
         elm.style.backgroundColor = "#00000000";
         elm.setAttribute("chunked", "false");
     }
