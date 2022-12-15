@@ -22,7 +22,31 @@ async function getChapterList(project) {
     return chapterList;
 }
 
-async function loadChapterText(project, chapterNumber) {
+async function loadChapterText(project, chapterNumber, byParagraph = true) {
+    switch (byParagraph) {
+        case true: { return loadChapterTextByParagraphs(project, chapterNumber); }
+        case false: { return loadChapterTextByVerses(project, chapterNumber); }
+    }
+}
+
+async function loadChapterTextByParagraphs(project, chapterNumber) {
+    const paragraphsQuery = `{
+        documents(withTags: "uuid_${project.id}") {
+            mainSequence {
+                blocks(withScriptureCV: "${chapterNumber}") {
+                    text(normalizeSpace: true)
+                }
+            }
+        }
+    }`;
+
+    const result = await pk.gqlQuery(paragraphsQuery);
+
+    const paragraphList = result["data"]["documents"][0]["mainSequence"]["blocks"].map(x => x.text);
+    return paragraphList;
+}
+
+async function loadChapterTextByVerses(project, chapterNumber) {
     const versesQuery = `{
         documents(withTags: "uuid_${project.id}") {
            cv(chapterVerses:"${chapterNumber}") {
@@ -44,9 +68,9 @@ async function getDocumentCode(project) {
         } 
       }`;
 
-      const result = await pk.gqlQuery(bookCodeQuery);
-      
-      return result["data"]["documents"][0]["header"];
+    const result = await pk.gqlQuery(bookCodeQuery);
+
+    return result["data"]["documents"][0]["header"];
 }
 
 export { getChapterList, loadChapterText, getDocumentCode };

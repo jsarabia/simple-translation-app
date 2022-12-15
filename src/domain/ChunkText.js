@@ -77,6 +77,11 @@ function highlightChunks(start, end) {
     let text = "";
     for (var i = start; i <= end; i++) {
         const element = document.getElementById(i)
+        console.log(element);
+        if (element == null) {
+            console.log(i);
+            continue;
+        }
         element.style.backgroundColor = color;
         element.setAttribute("chunked", "true");
         text += element.textContent;
