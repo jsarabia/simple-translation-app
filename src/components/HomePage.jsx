@@ -123,11 +123,12 @@ function SourcesList(props) {
     };
 
     return (<List>
-        {props.sources.map(x => {
-            return (<SourcesListItem 
+        {props.sources.map((src, index) => {
+            return (<SourcesListItem
+                key={index}
                 onClick={props.onClick} 
                 onChapterClick={props.onChapterClick} 
-                source={x} 
+                source={src} 
                 chapters={props.chapters}
                 openId={open} 
                 onListItemClicked={handleClick}

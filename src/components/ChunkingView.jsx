@@ -37,7 +37,7 @@ function ChunkingView({ isActive }) {
       <p className="paragraph_text">
         {words.map((word) => {
           count++;
-          let spannedText = (<span class="draft_text" chunked="false" id={count} onClick={(event) => {
+          let spannedText = (<span className="draft_text" chunked="false" id={count} onClick={(event) => {
             if (highlightedElement != null) {
               let elem = document.getElementById(highlightedElement.id);
               if (elem.getAttribute("chunked") === "false") {
@@ -62,8 +62,8 @@ function ChunkingView({ isActive }) {
   }
 
   return (
-    <div class="first_page__content">
-      <div class="source_text_wrap">
+    <div className="first_page__content">
+      <div className="source_text_wrap">
         <div id="chunk_holder">
           {out}
         </div>
