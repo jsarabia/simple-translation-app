@@ -21,7 +21,7 @@ function TopBar({bookCode, chapterNumber}) {
         downloadLink.click();
     }
 
-    return (<div class="home_page__top_bar">
+    return (<div className="home_page__top_bar">
         <Button component="div" color="secondary" variant="contained" onClick={() => {
             saveTextAsFile(PrepareDownloadText.process(bookCode, chapterNumber, document.getElementById("final").value), `${bookCode}_${chapterNumber}_draft.usfm`);
         }}>
@@ -49,10 +49,10 @@ function ThirdPage({ isActive }) {
     }, [isActive]);
 
     return (
-        <div class="third_page__container">
+        <div className="third_page__container">
             <TopBar bookCode={draft.bookCode} chapterNumber={draft.chapterNumber}/>
-            <div class="third_page__draft_container">
-                <textarea class="" id="final"></textarea>
+            <div className="third_page__draft_container">
+                <textarea className="" id="final"></textarea>
             </div>
         </div>
     )

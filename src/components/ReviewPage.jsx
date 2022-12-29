@@ -10,8 +10,8 @@ function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish
 
     const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary" endIcon={<ArrowForwardIcon />}>Finish</Button>);
 
-    return (<div class="second_page__actions__container">
-        <div class="second_page__actions--right">
+    return (<div className="second_page__actions__container">
+        <div className="second_page__actions--right">
             {finishButton}
         </div >
     </div>);
@@ -60,7 +60,7 @@ function ReviewPage({ nextStep, isActive }) {
     }, [isActive]);
 
     return (
-        <div class="second_page__container">
+        <div className="second_page__container">
             <TopBar onFinish={() => {
                 (async () => {
                     await onFinishChunk();

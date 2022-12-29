@@ -12,13 +12,13 @@ function TopBar({ hasPreviousChunks, hasMoreChunks, onNext, onPrevious, onFinish
     const nextButton = (<Button component="div" disabled={!hasMoreChunks} onClick={onNext} variant="contained" color="info" endIcon={<ArrowForwardIcon/>}>Next</Button>);
     const finishButton = (<Button component="div" disabled={hasMoreChunks} onClick={onFinish} variant="contained" color="secondary" endIcon={<ArrowForwardIcon/>}>Review</Button>);
 
-    return (<div class="second_page__actions__container">
-        <div class="second_page__actions--left">
+    return (<div className="second_page__actions__container">
+        <div className="second_page__actions--left">
             <Button component="div" variant="contained" color="info" disabled={!hasPreviousChunks} onClick={onPrevious} startIcon={<ArrowBackIcon/>}>
                 Previous
             </Button>
         </div>
-        <div class="second_page__actions--right">
+        <div className="second_page__actions--right">
             {hasMoreChunks ? nextButton : finishButton}
         </div >
     </div>);
@@ -74,18 +74,18 @@ function SecondPage({ nextStep, isActive }) {
     }, [isActive]);
 
     return (
-        <div class="second_page__container">
+        <div className="second_page__container">
             <TopBar hasPreviousChunks={chunkNumber >= 1} hasMoreChunks={hasMoreChunks} onNext={onNextChunk} onPrevious={onPreviousChunk} onFinish={() => {
                 (async () => {
                     await onFinishChunk();
                 })();
             }} />
-            <div class="blind_draft__container">
-                <div class="second_page__center-text">
-                    <div class="text_wrap draft_text" id="chunkText">{sourceText}</div>
+            <div className="blind_draft__container">
+                <div className="second_page__center-text">
+                    <div className="text_wrap draft_text" id="chunkText">{sourceText}</div>
                 </div>
-                <div class="text_wrap second_page__input_container">
-                <textarea class="second_page__input text_wrap" id="draftText" onInput={() => {
+                <div className="text_wrap second_page__input_container">
+                <textarea className="second_page__input text_wrap" id="draftText" onInput={() => {
                     document.getElementById("chunkText").style.visibility = "hidden";
                 }}></textarea>
                 </div>
