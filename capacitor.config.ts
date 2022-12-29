@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
-  appName: 'translationapp',
+  appId: 'com.example.translationapp',
+  appName: 'Translation App',
   webDir: 'dist',
   bundledWebRuntime: false
 };

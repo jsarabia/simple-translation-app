@@ -175,7 +175,7 @@ function HomePage(props) {
                     }
                 }>
             </SourcesList>
-            <input type="file" accept=".usfm, .usfm3, .USFM, .USFM3" onChange={(event) => {
+            <input type="file" onChange={(event) => {
                 const files = event.target.files;
                 for (const file of files) {
                     createProject(dispatch, projectCount, file);
