@@ -1,6 +1,6 @@
 {
-  "homepage": "https://jsarabia.github.io/simple-translation-app",
-  "name": "simple-translation-app",
+  "homepage": "./",
+  "name": "translationapp",
   "private": true,
   "version": "0.2.0",
   "type": "module",
